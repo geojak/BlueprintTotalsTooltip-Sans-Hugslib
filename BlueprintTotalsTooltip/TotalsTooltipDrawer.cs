@@ -82,7 +82,7 @@ namespace BlueprintTotalsTooltip
 		#region callbacks
 		public void OnPlaySettingChange()
 		{
-			if (ModSettings_BlueprintTotal.ShouldDrawTooltip && !WorldRendererUtility.WorldRenderedNow && Find.CurrentMap != null)
+			if (ModSettings_BlueprintTotal.ShouldDrawTooltip && !WorldRendererUtility.DrawingMap && Find.CurrentMap != null)
 			{
 				if (NoConstructablesSelected && ZoomIsValid && ModSettings_BlueprintTotal.TrackingVisible)
 				{ 
@@ -98,7 +98,7 @@ namespace BlueprintTotalsTooltip
 
 		public void OnSelectionChange()
 		{
-			if (ModSettings_BlueprintTotal.ShouldDrawTooltip && !WorldRendererUtility.WorldRenderedNow)
+			if (ModSettings_BlueprintTotal.ShouldDrawTooltip && !WorldRendererUtility.DrawingMap)
 			{
 				if (NoConstructablesSelected && ModSettings_BlueprintTotal.TrackingVisible)
 					Tracker.TrackVisibleConstructibles();
@@ -128,7 +128,7 @@ namespace BlueprintTotalsTooltip
 
 		public void OnThingAdded(Thing thing)
 		{
-			if (NoConstructablesSelected && ModSettings_BlueprintTotal.TrackingVisible && ModSettings_BlueprintTotal.ShouldDrawTooltip && !WorldRendererUtility.WorldRenderedNow)
+			if (NoConstructablesSelected && ModSettings_BlueprintTotal.TrackingVisible && ModSettings_BlueprintTotal.ShouldDrawTooltip && !WorldRendererUtility.DrawingMap)
 				if (thing is IConstructible)
 				{
 					Tracker.TryTrackConstructible(thing);
@@ -137,7 +137,7 @@ namespace BlueprintTotalsTooltip
 
 		public void OnThingRemove(Thing thing)
 		{
-			if (NoConstructablesSelected && ModSettings_BlueprintTotal.TrackingVisible && ModSettings_BlueprintTotal.ShouldDrawTooltip && !WorldRendererUtility.WorldRenderedNow)
+			if (NoConstructablesSelected && ModSettings_BlueprintTotal.TrackingVisible && ModSettings_BlueprintTotal.ShouldDrawTooltip && !WorldRendererUtility.DrawingMap)
 			{
 				if (thing is IConstructible)
 				{
@@ -150,7 +150,7 @@ namespace BlueprintTotalsTooltip
 		public void OnGUI()
 		{
 			CheckDrawSettingToggle();
-			if (Find.CurrentMap != null && !WorldRendererUtility.WorldRenderedNow)
+			if (Find.CurrentMap != null && !WorldRendererUtility.DrawingMap)
 			{
 				cameraChangeDetector.OnGUI();
 				if (ModSettings_BlueprintTotal.ShouldDrawTooltip && Tracker.NumberTracked > 0)
